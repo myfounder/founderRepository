@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apiserve.domain.InterfaceServiceLog">
+	<resultMap id="BaseResultMap" type="com.apiserve.domain.InterfaceServiceLog">
+		<id column="ID" jdbcType="DECIMAL" property="id" />
+		<result column="NAME" jdbcType="OTHER" property="name" />
+		<result column="SPECIES" jdbcType="OTHER" property="species" />
+		<result column="SYSTEM_NAME" jdbcType="OTHER" property="systemName" />
+		<result column="SYSTEM_IP" jdbcType="OTHER" property="systemIp" />
+		<result column="STATUS" jdbcType="CHAR" property="status" />
+		<result column="SERVICE_TIME" jdbcType="DATE" property="serviceTime" />
+		<result column="SERVICE_FEEDBACK" jdbcType="OTHER" property="serviceFeedback" />
+		<result column="DATA_AMOUNT" jdbcType="DECIMAL" property="dataAmount" />
+		<result column="REQUEST_TIME" jdbcType="DATE" property="requestTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME, SPECIES, SYSTEM_NAME, SYSTEM_IP, STATUS,
+		SERVICE_TIME,
+		SERVICE_FEEDBACK,
+		DATA_AMOUNT, REQUEST_TIME
+  </sql>
+	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_INTERFACE_SERVICE
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+		delete from
+		T_INTERFACE_SERVICE
+		where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+	<insert id="insert" parameterType="com.apiserve.domain.InterfaceServiceLog">
+		insert into
+		T_INTERFACE_SERVICE (ID, NAME, SPECIES,
+		SYSTEM_NAME, SYSTEM_IP, STATUS,
+		SERVICE_TIME, SERVICE_FEEDBACK, DATA_AMOUNT,
+		REQUEST_TIME)
+		values
+		(#{id,jdbcType=DECIMAL}, #{name,jdbcType=OTHER},
+		#{species,jdbcType=OTHER},
+		#{systemName,jdbcType=OTHER},
+		#{systemIp,jdbcType=OTHER}, #{status,jdbcType=CHAR},
+		#{serviceTime,jdbcType=DATE}, #{serviceFeedback,jdbcType=OTHER},
+		#{dataAmount,jdbcType=DECIMAL},
+		#{requestTime,jdbcType=DATE})
+  </insert>
+	<insert id="insertSelective" parameterType="com.apiserve.domain.InterfaceServiceLog">
+		insert into T_INTERFACE_SERVICE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+      </if>
+			<if test="name != null">
+				NAME,
+      </if>
+			<if test="species != null">
+				SPECIES,
+      </if>
+			<if test="systemName != null">
+				SYSTEM_NAME,
+      </if>
+			<if test="systemIp != null">
+				SYSTEM_IP,
+      </if>
+			<if test="status != null">
+				STATUS,
+      </if>
+			<if test="serviceTime != null">
+				SERVICE_TIME,
+      </if>
+			<if test="serviceFeedback != null">
+				SERVICE_FEEDBACK,
+      </if>
+			<if test="dataAmount != null">
+				DATA_AMOUNT,
+      </if>
+			<if test="requestTime != null">
+				REQUEST_TIME,
+      </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+      </if>
+			<if test="name != null">
+				#{name,jdbcType=OTHER},
+      </if>
+			<if test="species != null">
+				#{species,jdbcType=OTHER},
+      </if>
+			<if test="systemName != null">
+				#{systemName,jdbcType=OTHER},
+      </if>
+			<if test="systemIp != null">
+				#{systemIp,jdbcType=OTHER},
+      </if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+      </if>
+			<if test="serviceTime != null">
+				#{serviceTime,jdbcType=DATE},
+      </if>
+			<if test="serviceFeedback != null">
+				#{serviceFeedback,jdbcType=OTHER},
+      </if>
+			<if test="dataAmount != null">
+				#{dataAmount,jdbcType=DECIMAL},
+      </if>
+			<if test="requestTime != null">
+				#{requestTime,jdbcType=DATE},
+      </if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.apiserve.domain.InterfaceServiceLog">
+		update T_INTERFACE_SERVICE
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=OTHER},
+      </if>
+			<if test="species != null">
+				SPECIES = #{species,jdbcType=OTHER},
+      </if>
+			<if test="systemName != null">
+				SYSTEM_NAME = #{systemName,jdbcType=OTHER},
+      </if>
+			<if test="systemIp != null">
+				SYSTEM_IP = #{systemIp,jdbcType=OTHER},
+      </if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=CHAR},
+      </if>
+			<if test="serviceTime != null">
+				SERVICE_TIME = #{serviceTime,jdbcType=DATE},
+      </if>
+			<if test="serviceFeedback != null">
+				SERVICE_FEEDBACK = #{serviceFeedback,jdbcType=OTHER},
+			</if>
+			<if test="dataAmount != null">
+				DATA_AMOUNT = #{dataAmount,jdbcType=DECIMAL},
+      </if>
+			<if test="requestTime != null">
+				REQUEST_TIME = #{requestTime,jdbcType=DATE},
+      </if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.apiserve.domain.InterfaceServiceLog">
+		update
+		T_INTERFACE_SERVICE
+		set NAME = #{name,jdbcType=OTHER},
+		SPECIES =
+		#{species,jdbcType=OTHER},
+		SYSTEM_NAME = #{systemName,jdbcType=OTHER},
+		SYSTEM_IP = #{systemIp,jdbcType=OTHER},
+		STATUS =
+		#{status,jdbcType=CHAR},
+		SERVICE_TIME = #{serviceTime,jdbcType=DATE},
+		SERVICE_FEEDBACK = #{serviceFeedback,jdbcType=OTHER},
+		DATA_AMOUNT =
+		#{dataAmount,jdbcType=DECIMAL},
+		REQUEST_TIME =
+		#{requestTime,jdbcType=DATE}
+		where ID = #{id,jdbcType=DECIMAL}
+  </update>
+	<!-- 分页查询  两个SQL语句++++++++++++start+++++++++++++ -->
+	<!-- 1、查询所有 -->
+	<select id="find" parameterType="map" resultMap="BaseResultMap">
+		select * from (
+		select t.* from (
+		select rownum as rn,
+		ID, NAME, SPECIES,
+		SYSTEM_NAME, SYSTEM_IP, STATUS,
+		SERVICE_TIME,
+		SERVICE_FEEDBACK,
+		DATA_AMOUNT, REQUEST_TIME
+		from
+		T_INTERFACE_SERVICE
+		<where>
+			<if test="name!=null and name!=''">and NAME = #{name,jdbcType=VARCHAR}</if>
+			<if test="startTime!=null and startTime!=''">
+				<![CDATA[
+					and SERVICE_TIME >= #{startTime,jdbcType=DATE}
+				]]>
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				<![CDATA[
+					and SERVICE_TIME <= #{endTime,jdbcType=DATE}
+				]]>
+			</if>
+		</where>
+		order by ID asc
+		)t where 1=1
+		<if test="endRow!=null">
+			and #{endRow}>rn
+		      </if>
+		)t where 1=1
+		<if test="startRow!=null">
+			and rn>#{startRow}
+		   </if>
+	</select>
+	<!-- 2、查询总条数 -->
+	<select id="count" parameterType="map" resultType="java.lang.Integer">
+		select
+		count(ID) as countNum
+		from T_INTERFACE_SERVICE
+		<where>
+			<if test="name!=null and name!=''">and NAME = #{name,jdbcType=VARCHAR}</if>
+			<if test="startTime!=null and startTime!=''">
+				<![CDATA[
+					and SERVICE_TIME >= #{startTime,jdbcType=DATE}
+				]]>
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				<![CDATA[
+					and SERVICE_TIME <= #{endTime,jdbcType=DATE}
+				]]>
+			</if>
+		</where>
+	</select>
+	<!-- 分页查询  两个SQL语句++++++++++++end+++++++++++++ -->
+</mapper>

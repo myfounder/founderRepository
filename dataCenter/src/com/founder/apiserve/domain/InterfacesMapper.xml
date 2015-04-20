@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.apiserve.domain.Interfaces">
+	<resultMap id="BaseResultMap" type="com.apiserve.domain.Interfaces">
+		<id column="ID" property="id" />
+		<result column="CODE" property="code" />
+		<result column="NAME" property="name" />
+		<result column="SPECIES" property="species" />
+		<result column="EXPLAIN" property="explain" />
+		<result column="STATUS" property="status" />
+		<result column="IS_RUN" property="isRun" />
+		<result column="URL" property="url" />
+		<result column="REQUEST_MODE" property="requestMode" />
+		<result column="DATA_FORMAT" property="dataFormat" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CODE, NAME, SPECIES, EXPLAIN, STATUS, IS_RUN, URL,
+		REQUEST_MODE,
+		DATA_FORMAT
+	</sql>
+	<!-- 根据ID查询接口对象 -->
+	<select id="get" resultMap="BaseResultMap" parameterType="java.math.BigDecimal">
+		select
+		<include refid="Base_Column_List" />
+		from T_INTERFACES
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+		delete from
+		T_INTERFACES
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<!-- 添加接口 -->
+	<insert id="insert" parameterType="com.apiserve.domain.Interfaces">
+		insert into T_INTERFACES (ID,
+		CODE, NAME, SPECIES,
+		EXPLAIN, STATUS, IS_RUN, URL,
+		REQUEST_MODE,
+		DATA_FORMAT)
+		values (SEQ_T_INTERFACES.NEXTVAL,
+		#{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{species,jdbcType=VARCHAR},
+		#{explain,jdbcType=VARCHAR},1,
+		#{isRun,jdbcType=CHAR},
+		#{url,jdbcType=VARCHAR},
+		'POST',
+		#{dataFormat,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.apiserve.domain.Interfaces">
+		insert into T_INTERFACES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+      </if>
+			<if test="code != null">
+				CODE,
+      </if>
+			<if test="name != null">
+				NAME,
+      </if>
+			<if test="species != null">
+				SPECIES,
+      </if>
+			<if test="explain != null">
+				EXPLAIN,
+      </if>
+			<if test="status != null">
+				STATUS,
+      </if>
+			<if test="isRun != null">
+				IS_RUN,
+      </if>
+			<if test="url != null">
+				URL,
+      </if>
+			<if test="requestMode != null">
+				REQUEST_MODE,
+      </if>
+			<if test="dataFormat != null">
+				DATA_FORMAT,
+      </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+      </if>
+			<if test="code != null">
+				#{code,jdbcType=OTHER},
+      </if>
+			<if test="name != null">
+				#{name,jdbcType=OTHER},
+      </if>
+			<if test="species != null">
+				#{species,jdbcType=OTHER},
+      </if>
+			<if test="explain != null">
+				#{explain,jdbcType=OTHER},
+      </if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+      </if>
+			<if test="isRun != null">
+				#{isRun,jdbcType=CHAR},
+      </if>
+			<if test="url != null">
+				#{url,jdbcType=OTHER},
+      </if>
+			<if test="requestMode != null">
+				#{requestMode,jdbcType=OTHER},
+      </if>
+			<if test="dataFormat != null">
+				#{dataFormat,jdbcType=OTHER},
+      </if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.apiserve.domain.Interfaces">
+		update T_INTERFACES
+		<set>
+			<if test="code != null">
+				CODE = #{code,jdbcType=VARCHAR},
+      </if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+      </if>
+			<if test="species != null">
+				SPECIES = #{species,jdbcType=VARCHAR},
+      </if>
+			<if test="explain != null">
+				EXPLAIN = #{explain,jdbcType=VARCHAR},
+      </if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=CHAR},
+      </if>
+			<if test="isRun != null">
+				IS_RUN = #{isRun,jdbcType=CHAR},
+      </if>
+			<if test="url != null">
+				URL = #{url,jdbcType=VARCHAR},
+      </if>
+			<if test="requestMode != null">
+				REQUEST_MODE = #{requestMode,jdbcType=VARCHAR},
+      </if>
+			<if test="dataFormat != null">
+				DATA_FORMAT = #{dataFormat,jdbcType=VARCHAR},
+      </if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.apiserve.domain.Interfaces">
+		update
+		T_INTERFACES
+		set CODE = #{code,jdbcType=OTHER},
+		NAME =
+		#{name,jdbcType=OTHER},
+		SPECIES = #{species,jdbcType=OTHER},
+		EXPLAIN =
+		#{explain,jdbcType=OTHER},
+		STATUS = #{status,jdbcType=CHAR},
+		IS_RUN =
+		#{isRun,jdbcType=CHAR},
+		URL = #{url,jdbcType=OTHER},
+		REQUEST_MODE =
+		#{requestMode,jdbcType=OTHER},
+		DATA_FORMAT =
+		#{dataFormat,jdbcType=OTHER}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="BaseResultMap">
+		select * from T_INTERFACES T
+		order by T.ID desc
+	</select>
+	<select id="findInterfacesName" resultMap="BaseResultMap">
+		select distinct t.name
+		from T_INTERFACES t where t.name is not null
+	</select>
+	<select id="findInterfacesNameOpen" resultMap="BaseResultMap">
+		select distinct
+		t.name
+		from T_INTERFACES t
+		where t.is_run = 1
+		and t.name is not null
+	</select>
+
+	<!-- 分页查询  两个SQL语句+++++start -->
+	<!-- 1、查询所有 -->
+	<select id="find" parameterType="map" resultMap="BaseResultMap">
+		select * from (
+		select t.* from (
+		select rownum as rn,
+		ID, CODE, NAME,
+		SPECIES, EXPLAIN, STATUS, IS_RUN, URL,
+		REQUEST_MODE,
+		DATA_FORMAT
+		from
+		T_INTERFACES
+		<where>
+			<if test="code!=null and code!=''">
+				and CODE like '%'||#{code,jdbcType=VARCHAR}||'%'
+			</if>
+			<if test="species!=null and species!=''">and SPECIES = #{species,jdbcType=VARCHAR}</if>
+		</where>
+		order by ID asc
+		)t where 1=1
+		<if test="endRow!=null">
+			and #{endRow}>rn
+		      </if>
+		)t where 1=1
+		<if test="startRow!=null">
+			and rn>#{startRow}
+		   </if>
+	</select>
+	<!-- 2、查询总条数 -->
+	<select id="count" parameterType="map" resultType="java.lang.Integer">
+		select
+		count(ID) as countNum
+		from T_INTERFACES
+		<where>
+			<if test="code!=null and code!=''">
+				and CODE like '%'||#{code,jdbcType=VARCHAR}||'%'
+			</if>
+			<if test="species!=null and species!=''">and SPECIES = #{species,jdbcType=VARCHAR}</if>
+		</where>
+	</select>
+	<!-- 分页查询  两个SQL语句+++++end -->
+	<select id="findInterfacesNameByCode" parameterType="string"
+		resultMap="BaseResultMap">
+		select * from t_interfaces t where t.code
+		=#{checkCode}
+	</select>
+</mapper>

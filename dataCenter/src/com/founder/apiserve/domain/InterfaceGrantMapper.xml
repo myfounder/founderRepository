@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.apiserve.domain.InterfaceGrant">
+	<resultMap id="BaseResultMap" type="com.apiserve.domain.InterfaceGrant">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="SYSTEM_NAME" property="systemName" />
+		<result column="SYSTEM_IP" property="systemIp" />
+		<result column="PORT_NO" property="portNo" />
+		<result column="STATUS" property="status" />
+		<result column="DESCRIPTION" property="description" />
+		<result column="EXPLAIN" property="explain" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME, SYSTEM_NAME, SYSTEM_IP, PORT_NO, STATUS,
+		DESCRIPTION, EXPLAIN
+	</sql>
+	<!-- 根据ID查询 -->
+	<select id="get" resultMap="BaseResultMap" parameterType="java.lang.Short">
+		select
+		<include refid="Base_Column_List" />
+		from T_INTERFACE_GRANT
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Short">
+		delete from
+		T_INTERFACE_GRANT
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.apiserve.domain.InterfaceGrant">
+		insert into T_INTERFACE_GRANT
+		(ID, NAME, SYSTEM_NAME,
+		SYSTEM_IP, PORT_NO, STATUS, DESCRIPTION,
+		EXPLAIN)
+		values (SEQ_T_INTERFACE_GRANT.NEXTVAL,
+		#{name,jdbcType=VARCHAR},
+		#{systemName,jdbcType=VARCHAR},
+		#{systemIp,jdbcType=VARCHAR},
+		#{portNo,jdbcType=CHAR},
+		#{status,jdbcType=CHAR},
+		#{description,jdbcType=VARCHAR},
+		#{explain,jdbcType=VARCHAR})
+	</insert>
+	<!-- 动态插入 -->
+	<insert id="insertSelective" parameterType="com.apiserve.domain.InterfaceGrant">
+		insert into T_INTERFACE_GRANT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="systemName != null">
+				SYSTEM_NAME,
+			</if>
+			<if test="systemIp != null">
+				SYSTEM_IP,
+			</if>
+			<if test="portNo != null">
+				PORT_NO,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="explain != null">
+				EXPLAIN,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=OTHER},
+			</if>
+			<if test="systemName != null">
+				#{systemName,jdbcType=OTHER},
+			</if>
+			<if test="systemIp != null">
+				#{systemIp,jdbcType=OTHER},
+			</if>
+			<if test="portNo != null">
+				#{portNo,jdbcType=CHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=OTHER},
+			</if>
+			<if test="explain != null">
+				#{explain,jdbcType=OTHER},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.apiserve.domain.InterfaceGrant">
+		update
+		T_INTERFACE_GRANT
+		set
+		NAME = #{name,jdbcType=VARCHAR},
+		SYSTEM_NAME =
+		#{systemName,jdbcType=VARCHAR},
+		SYSTEM_IP =
+		#{systemIp,jdbcType=VARCHAR},
+		PORT_NO = #{portNo,jdbcType=CHAR},
+		STATUS
+		= #{status,jdbcType=CHAR},
+		DESCRIPTION =
+		#{description,jdbcType=VARCHAR},
+		EXPLAIN =
+		#{explain,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<!-- 根据id修改 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.apiserve.domain.InterfaceGrant">
+		update T_INTERFACE_GRANT
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=OTHER},
+			</if>
+			<if test="systemName != null">
+				SYSTEM_NAME = #{systemName,jdbcType=OTHER},
+			</if>
+			<if test="systemIp != null">
+				SYSTEM_IP = #{systemIp,jdbcType=OTHER},
+			</if>
+			<if test="portNo != null">
+				PORT_NO = #{portNo,jdbcType=CHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=CHAR},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=OTHER},
+			</if>
+			<if test="explain != null">
+				EXPLAIN = #{explain,jdbcType=OTHER},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<!-- 查询所有 -->
+	<select id="find2" parameterType="map" resultMap="BaseResultMap">
+		select * from (
+		select rownum rn,
+		ID, NAME,SYSTEM_NAME, SYSTEM_IP,
+		PORT_NO, STATUS, DESCRIPTION,
+		EXPLAIN
+		from
+		T_INTERFACE_GRANT
+		<where>
+			<if test="STATE!=null">
+				and STATE=#{STATE,jdbcType=NUMERIC}
+			</if>
+			<if test="endRow!=null">
+				  <![CDATA[ and rownum &lt;= #{endRow,jdbcType=NUMERIC} ]]>
+			</if>
+		</where>
+		order by ID desc
+		)T1
+		<where>
+			<if test="startRow!=null">
+				rn <![CDATA[ &gt; ]]>#{startRow,jdbcType=NUMERIC}
+			</if>
+			<if test="name!=null">and NAME = #{name,jdbcType=VARCHAR}</if>
+			<if test="systemName!=null">and SYSTEM_NAME like
+				'%'||#{systemName,jdbcType=VARCHAR}||'%'</if>
+		</where>
+	</select>
+	<select id="count" parameterType="map" resultType="java.lang.Integer">
+		select
+		count(ID) as countNum
+		from T_INTERFACE_GRANT
+		<where>
+			<if test="name!=null and name!=''">and NAME = #{name,jdbcType=VARCHAR}</if>
+			<if test="systemName!=null and systemName!=''">and SYSTEM_NAME like
+				'%'||#{systemName,jdbcType=VARCHAR}||'%'</if>
+		</where>
+	</select>
+	<select id="findServiceName" resultMap="BaseResultMap">
+		select distinct t.name
+		from t_interface_grant t where t.name is not null
+	</select>
+	<select id="findGrantStatus" resultMap="BaseResultMap">
+		select distinct t.status
+		from
+		t_interface_grant t where t.status is not null
+	</select>
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="BaseResultMap">
+		SELECT ID, NAME, SYSTEM_NAME,
+		SYSTEM_IP, PORT_NO, STATUS,
+		DESCRIPTION,
+		EXPLAIN FROM T_INTERFACE_GRANT T
+		<where>
+			<if test="name!=null and name!=''">
+				and NAME =#{name}
+			</if>
+			<if test="systemName!= null and systemName!=''">
+				and SYSTEM_NAME like '#${systemName}%'
+			</if>
+		</where>
+	</select>
+	<!-- 查询所有 -->
+	<select id="find" parameterType="map" resultMap="BaseResultMap">
+		select * from (
+		select t.* from (
+		select rownum as rn,
+		tig.ID,
+		tig.NAME,
+		tig.SYSTEM_NAME,
+		tig.SYSTEM_IP,
+		tig.PORT_NO,
+		tig.STATUS,
+		tig.DESCRIPTION,
+		tig.EXPLAIN
+		from
+		T_INTERFACE_GRANT tig,T_INTERFACES tif
+		where
+		tif.is_run=1 and tig.name=tif.code
+		<where>
+			<if test="name!=null and name!=''">
+				and NAME=#{name}
+		      </if>
+			<if test="systemName!=null and systemName!=''">and SYSTEM_NAME like
+				'%'||#{systemName,jdbcType=VARCHAR}||'%'</if>
+		</where>
+		order by ID asc
+		)t where 1=1
+		<if test="endRow!=null">
+			and #{endRow}>rn
+		      </if>
+		)t where 1=1
+		<if test="startRow!=null">
+			and rn>#{startRow}
+		   </if>
+	</select>
+</mapper>

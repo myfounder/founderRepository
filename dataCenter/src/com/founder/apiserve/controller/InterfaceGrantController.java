@@ -38,7 +38,7 @@ public class InterfaceGrantController extends BaseController {
 
 	/**
 	 * 
-	 * @description:授权管理首页
+	 * @description:index
 	 * @param:
 	 * @return:
 	 * @author: YeJianPing

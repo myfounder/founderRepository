@@ -47,8 +47,6 @@ public class InterfaceGrantController extends BaseController {
 	@RequestMapping("/interfacegrant/findpage")
 	public String findpage(HttpServletRequest request,
 			Page<InterfaceGrant> page, Model model) {
-		// List<Interfaces> interList = interfacesService.findInterfacesName();
-		// model.addAttribute("interList", interList);
 		model.addAttribute("interOpenMap", InterfacesPojoStore.getInstance()
 				.getIntfOpenDataMap());
 		Map<String, String[]> parameterMap = request.getParameterMap();
@@ -137,8 +135,6 @@ public class InterfaceGrantController extends BaseController {
 		saveToken(request);
 		InterfaceGrant interfaceGrant = interfaceGrantService.get(id);
 		model.addAttribute("interfaceGrant", interfaceGrant);
-		// List<Interfaces> interList = interfacesService.findInterfacesName();
-		// model.addAttribute("interList", interList);
 		model.addAttribute("interOpenMap", InterfacesPojoStore.getInstance()
 				.getIntfOpenDataMap());
 		List<InterfaceGrant> ugrantsStatus = interfaceGrantService
